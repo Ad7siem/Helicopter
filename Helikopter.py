@@ -59,7 +59,32 @@ def WriteResults(text, size):
 def SaveFileStatistic():
     path = os.path.dirname(sys.argv[0])
     with open(path+'\statistic.ini', 'a+') as file:
-        file.writelines(str(points_stars)+'\n')
+        if points_level == 1:
+            file.writelines((str(points_stars)+' easy')+'\n')
+        elif points_level == 2:
+            file.writelines((str(points_stars)+' medium')+'\n')
+        elif points_level == 3:
+            file.writelines((str(points_stars)+' hard')+'\n')
+
+
+def OpenFileStatistic():
+    path = os.path.dirname(sys.argv[0])
+    with open(path+'\statistic.ini', 'r+') as file:
+        size = 24
+        x_position = (x_window - size) * 1 / 5
+        y_position = (y_window - size) * 1 / 5
+        for line in file:
+            parts = line.replace('\n', '')
+            font_text = pygame.font.SysFont('Arial', size)
+            render_text = font_text.render(str(parts), 1, (220, 220, 220))
+            screen.blit(render_text, (x_position, y_position))
+            y_position = y_position + 35
+
+
+def ResertStatistic():
+    path = os.path.dirname(sys.argv[0])
+    with open(path+'\statistic.ini', 'w+') as file:
+        file.writelines('')
 
 def Logo(file):
     logo = pygame.image.load(os.path.join(file))
@@ -100,10 +125,19 @@ def LevelPanel():
     screen.blit(render_text_medium, (x_position - 10, y_position))
     screen.blit(render_text_hard, (x_position + 20, y_position + 50))
 
-'Do dokończenia'
+'Do dokończenia = puste i nie wiem czy cos zrobie'
 def StatisticsTablePanel():
-    WritePoints('Punkty: {}'.format(20), 20)
-
+    pass
+    '''
+    path = os.path.dirname(sys.argv[0])
+    with open(path + '\statistic.ini', 'w+') as file:
+        for line in file:
+            font_text = pygame.font.SysFont('Arial', 32)
+            render_text = font_text.render(str(line), 1, (255, 255, 255))
+            screen.blit(render_text, (20, 20))
+        #font_text = pygame.font.SysFont('Arial', 32)
+        #render_text = font_text.render(str(file.write), 1, (220, 220, 220))
+        #screen.blit(render_text, (20, 20))'''
 
 class Area:
 
@@ -208,7 +242,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 dy = -1
             elif event.key == pygame.K_DOWN:
@@ -219,6 +253,7 @@ while True:
                     shows = 'level'
                     points = 0
                     points_stars = 0
+                    points_level = 0
                 elif shows == 'end':
                     shows = 'menu'
                 else:
@@ -241,6 +276,9 @@ while True:
             elif event.key == pygame.K_t:
                 if shows == 'menu':
                     shows = 'statistic'
+            elif event.key == pygame.K_w:
+                if shows == 'statistic':
+                    ResertStatistic()
             elif event.key == pygame.K_BACKSPACE:
                 if shows == 'statistic':
                     shows = 'menu'
@@ -252,7 +290,7 @@ while True:
                 dy = 0
 
     '''Panel gry'''
-    screen.fill((0, 0, 0))
+    screen.fill((100, 100, 100))
     if shows == 'menu':
         StartPanel()
 
@@ -296,7 +334,8 @@ while True:
         LevelPanel()
 
     elif shows == 'statistic':
-        StatisticsTablePanel()
+        #StatisticsTablePanel()
+        OpenFileStatistic()
 
     elif shows == 'end':
         EndPanel()
