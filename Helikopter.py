@@ -2,6 +2,7 @@
 Nie chce mi sie juz dalej dzisiaj nad tym siedziec
 
 1. wywala blad sRGB
+2. zrobic klase zapisu do pliku i tworzenia tablicy
 
 '''
 
@@ -11,11 +12,6 @@ import os
 import random
 import math
 import sys
-
-
-
-
-
 
 while True:
     '''Funkcja wyłączenia gry'''
