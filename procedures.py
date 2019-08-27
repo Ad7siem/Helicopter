@@ -8,7 +8,7 @@ import sys
 
 class Area:
 
-    def __init__(self, x_area, width_area):
+    def __init__(self, x_area, width_area, y_window):
         '''Towrze górną i dolną granice przeszkód'''
         self.x_area = x_area
         self.width_area = width_area
@@ -21,7 +21,7 @@ class Area:
         self.shape_area_top = pygame.Rect(self.x_area, self.y_top, self.width_area, self.height_top)
         self.shape_area_botton = pygame.Rect(self.x_area, self.y_bottom, self.width_area, self.height_bottom)
 
-    def DrawArea(self):
+    def DrawArea(self, screen):
         '''Rysuje górną i dolną przeszkodę'''
         pygame.draw.rect(screen, self.color_area, self.shape_area_top, 0)
         pygame.draw.rect(screen, self.color_area, self.shape_area_botton, 0)
@@ -43,7 +43,7 @@ class Stars(Area):
 
     def __init__(self, x_area, width_area, x_stars):
         '''Tworze gwiazdki'''
-        super().__init__(x_area, width_area)
+        super().__init__(x_area, width_area, y_window)
         self.x_stars = x_stars
         self.y_stars = random.randint(self.height_top + 50, self.height_bottom + (self.distance - 50))
         self.width_stars = 20
@@ -51,7 +51,7 @@ class Stars(Area):
         self.shape_stars = pygame.Rect(self.x_stars, self.y_stars, self.width_stars, self.height_stars)
         self.ImageStars = pygame.image.load(os.path.join('gwiazdka.png'))
 
-    def DrawStars(self):
+    def DrawStars(self, screen):
         '''Rysuje gwiazdki'''
         screen.blit(self.ImageStars, (self.x_stars, self.y_stars))
 
@@ -79,7 +79,7 @@ class Helicopter:
                                             self.width_helicopter, self.height_helicopter)
         self.ImageHelicopter = pygame.image.load(os.path.join('helikopter.png'))
 
-    def DrawHelicopter(self):
+    def DrawHelicopter(self, screen):
         '''Rysuje Helikopter'''
         screen.blit(self.ImageHelicopter, (self.x_position_helicopter, self.y_position_helicopter))
 

@@ -41,18 +41,18 @@ def WriteResults(text, size, x_window, y_window, screen):
 
 def SaveFileStatistic(points_level, points_stars):
     path = os.path.dirname(sys.argv[0])
-    with open(path+'\statistic.ini', 'a+') as file:
+    with open(path + '\statistic.ini', 'a+') as file:
         if points_level == 1:
-            file.writelines((str(points_stars)+' easy')+'\n')
+            file.writelines((str(points_stars) + ' easy') + '\n')
         elif points_level == 2:
-            file.writelines((str(points_stars)+' medium')+'\n')
+            file.writelines((str(points_stars) + ' medium') + '\n')
         elif points_level == 3:
-            file.writelines((str(points_stars)+' hard')+'\n')
+            file.writelines((str(points_stars) + ' hard') + '\n')
 
 
 def OpenFileStatistic(x_window, y_window, screen):
     path = os.path.dirname(sys.argv[0])
-    with open(path+'\statistic.ini', 'r+') as file:
+    with open(path + '\statistic.ini', 'r+') as file:
         size = 24
         x_position = (x_window - size) * 1 / 5
         y_position = (y_window - size) * 1 / 5
@@ -64,11 +64,11 @@ def OpenFileStatistic(x_window, y_window, screen):
             y_position = y_position + 35
 
 
-
 def ResertStatistic():
     path = os.path.dirname(sys.argv[0])
-    with open(path+'\statistic.ini', 'w+') as file:
+    with open(path + '\statistic.ini', 'w+') as file:
         file.writelines('')
+
 
 def Logo(file, x_window, y_window, screen):
     logo = pygame.image.load(os.path.join(file))
@@ -86,7 +86,6 @@ def StartPanel(x_window, y_window, screen):
     x_position = (x_window - render_text.get_rect().width) / 2
     y_position = (y_window - render_text.get_rect().height) * 3 / 4 - 50
     screen.blit(render_text, (x_position, y_position + 50))
-
 
 
 def EndPanel(points_stars):
@@ -109,7 +108,10 @@ def LevelPanel(x_window, y_window, screen):
     screen.blit(render_text_medium, (x_position - 10, y_position))
     screen.blit(render_text_hard, (x_position + 20, y_position + 50))
 
+
 'Do dokończenia = puste i nie wiem czy cos zrobie'
+
+
 def StatisticsTablePanel():
     pass
     '''
@@ -122,7 +124,3 @@ def StatisticsTablePanel():
         #font_text = pygame.font.SysFont('Arial', 32)
         #render_text = font_text.render(str(file.write), 1, (220, 220, 220))
         #screen.blit(render_text, (20, 20))'''
-
-
-
-
