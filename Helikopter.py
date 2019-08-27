@@ -13,6 +13,23 @@ import math
 import sys
 
 
+def SaveFileStatistic():
+    path = os.path.dirname(sys.argv[0])
+    with open(path+'\statistic.ini', 'a+') as file:
+        if points_level == 1:
+            file.writelines((str(points_stars)+' easy')+'\n')
+        elif points_level == 2:
+            file.writelines((str(points_stars)+' medium')+'\n')
+        elif points_level == 3:
+            file.writelines((str(points_stars)+' hard')+'\n')
+
+
+def EndPanel():
+    Logo('logo.jpg')
+    WriteText('Niestety przegrywasz', 42)
+    WriteTextSpace('Naciśnij spację, aby zacząć gre', 42)
+    WriteResults('Uzyskałeś {} punktów'.format(str(points_stars)), 30)
+
 
 
 while True:
