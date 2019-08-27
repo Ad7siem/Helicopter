@@ -55,7 +55,7 @@ def WriteResults(text, size):
     y_position = (y_window - render_text.get_rect().height) * 3 / 4
     screen.blit(render_text, (x_position, y_position))
 
-'Do dokończenia'
+
 def SaveFileStatistic():
     path = os.path.dirname(sys.argv[0])
     with open(path+'\statistic.ini', 'a+') as file:
@@ -79,6 +79,7 @@ def OpenFileStatistic():
             render_text = font_text.render(str(parts), 1, (220, 220, 220))
             screen.blit(render_text, (x_position, y_position))
             y_position = y_position + 35
+
 
 
 def ResertStatistic():
