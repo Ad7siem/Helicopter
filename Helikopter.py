@@ -9,6 +9,7 @@ import pygame
 import os
 import random
 import math
+import sys
 
 
 pygame.init()
@@ -55,9 +56,10 @@ def WriteResults(text, size):
     screen.blit(render_text, (x_position, y_position))
 
 'Do dokończenia'
-def FileStatistic():
-    pass
-
+def SaveFileStatistic():
+    path = os.path.dirname(sys.argv[0])
+    with open(path+'\statistic.ini', 'a+') as file:
+        file.writelines(str(points_stars)+'\n')
 
 def Logo(file):
     logo = pygame.image.load(os.path.join(file))
@@ -209,9 +211,9 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 dy = -1
-            if event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN:
                 dy = 1
-            if event.key == pygame.K_SPACE:
+            elif event.key == pygame.K_SPACE:
                 if shows == 'menu':
                     players = Helicopter(y_window / 2, x_window / 2)
                     shows = 'level'
@@ -221,31 +223,31 @@ while True:
                     shows = 'menu'
                 else:
                     pass
-            if event.key == pygame.K_e:
+            elif event.key == pygame.K_e:
                 if shows == 'level':
                     speed = 1 / 2
                     shows = 'game'
                     points_level = 1
-            if event.key == pygame.K_m:
+            elif event.key == pygame.K_m:
                 if shows == 'level':
                     speed = 1
                     shows = 'game'
                     points_level = 2
-            if event.key == pygame.K_h:
+            elif event.key == pygame.K_h:
                 if shows == 'level':
                     speed = 3 / 2
                     shows = 'game'
                     points_level = 3
-            if event.key == pygame.K_t:
+            elif event.key == pygame.K_t:
                 if shows == 'menu':
                     shows = 'statistic'
-            if event.key == pygame.K_BACKSPACE:
+            elif event.key == pygame.K_BACKSPACE:
                 if shows == 'statistic':
                     shows = 'menu'
-            if event.key == pygame.K_ESCAPE:
+            elif event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 quit()
-        if event.type == pygame.KEYUP:
+        elif event.type == pygame.KEYUP:
             if event.key == pygame.K_UP or pygame.K_DOWN:
                 dy = 0
 
@@ -262,13 +264,14 @@ while True:
 
             if obj_area.CollisionArea(players.shape_helicopter):
                 shows = 'end'
+                SaveFileStatistic()
 
         for obj_area in objects_area:
 
             if obj_area.x_area <= -obj_area.width_area:
                 objects_area.remove(obj_area)
                 objects_area.append(Area(x_window, x_window / 20))
-                points = points + math.fabs(dy)
+                #points = points + math.fabs(dy)
 
         for obj_star in objects_stars:
             obj_star.MoveStars(speed)
