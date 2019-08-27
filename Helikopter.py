@@ -26,7 +26,7 @@ screen = pygame.display.set_mode((x_window, y_window))
 objects_stars = []
 objects_area = []
 for i in range(21):
-    objects_area.append(Area(i * x_window / 20, x_window / 20))
+    objects_area.append(Area(i * x_window / 20, x_window / 20, y_window))
     objects_stars.append(Stars(i * x_window / 20, x_window / 20, i * x_window / 20))
 
 '''Tworzenie gracza'''
