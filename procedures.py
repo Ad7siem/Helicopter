@@ -5,14 +5,6 @@ import math
 import sys
 
 
-pygame.init()
-
-'''Rozmiar okna gry'''
-x_window = 800
-y_window = 800
-
-'''Tworzę okno gry'''
-screen = pygame.display.set_mode((x_window, y_window))
 
 class Area:
 
@@ -97,15 +89,4 @@ class Helicopter:
         self.shape_helicopter = pygame.Rect(self.x_position_helicopter, self.y_position_helicopter,
                                             self.height_helicopter, self.width_helicopter)
 
-'''Tworzę listę przeszkód'''
-objects_stars = []
-objects_area = []
-for i in range(21):
-    objects_area.append(Area(i * x_window / 20, x_window / 20))
-    objects_stars.append(Stars(i * x_window / 20, x_window / 20, i * x_window / 20))
 
-'''Tworzenie gracza'''
-players = Helicopter(y_window / 2, x_window / 2)
-# namePlayers = input('Name:')
-dy = 0
-shows = 'menu'

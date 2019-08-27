@@ -5,17 +5,7 @@ import math
 import sys
 
 
-pygame.init()
-
-'''Rozmiar okna gry'''
-x_window = 800
-y_window = 800
-
-'''Tworzę okno gry'''
-screen = pygame.display.set_mode((x_window, y_window))
-
-
-def WriteText(text, size):
+def WriteText(text, size, x_window, y_window, screen):
     '''Tworze tekst wyskakujacy podczas gry'''
     font_text = pygame.font.SysFont('Arial', size)
     render_text = font_text.render(text, 1, (226, 216, 196))
@@ -24,7 +14,7 @@ def WriteText(text, size):
     screen.blit(render_text, (x_position, y_position))
 
 
-def WriteTextSpace(text, size):
+def WriteTextSpace(text, size, x_window, y_window, screen):
     '''Tworze tekst wyskakujacy podczas gry'''
     font_text = pygame.font.SysFont('Arial', size)
     render_text = font_text.render(text, 1, (226, 216, 196))
@@ -33,14 +23,14 @@ def WriteTextSpace(text, size):
     screen.blit(render_text, (x_position, y_position))
 
 
-def WritePoints(text, size):
+def WritePoints(text, size, screen):
     '''Tworze tekst z ilością punktów'''
     font_text = pygame.font.SysFont('Arial', size)
     render_text = font_text.render(text, 1, (220, 220, 220))
     screen.blit(render_text, (20, 20))
 
 
-def WriteResults(text, size):
+def WriteResults(text, size, x_window, y_window, screen):
     '''Tworze wyniki na koniec gry'''
     font_text = pygame.font.SysFont('Arial', size)
     render_text = font_text.render(text, 1, (220, 220, 220))
@@ -60,7 +50,7 @@ def SaveFileStatistic(points_level, points_stars):
             file.writelines((str(points_stars)+' hard')+'\n')
 
 
-def OpenFileStatistic():
+def OpenFileStatistic(x_window, y_window, screen):
     path = os.path.dirname(sys.argv[0])
     with open(path+'\statistic.ini', 'r+') as file:
         size = 24
@@ -80,14 +70,14 @@ def ResertStatistic():
     with open(path+'\statistic.ini', 'w+') as file:
         file.writelines('')
 
-def Logo(file):
+def Logo(file, x_window, y_window, screen):
     logo = pygame.image.load(os.path.join(file))
     x_logo = (x_window - logo.get_rect().width) / 2
     y_logo = (y_window * 2 / 3 - logo.get_rect().height) / 2
     screen.blit(logo, (x_logo, y_logo))
 
 
-def StartPanel():
+def StartPanel(x_window, y_window, screen):
     WriteText('HELIKOPTER', 42)
     WriteTextSpace('Start Gry - SPACE', 38)
     Logo('logo.jpg')
@@ -106,7 +96,7 @@ def EndPanel(points_stars):
     WriteResults('Uzyskałeś {} punktów'.format(str(points_stars)), 30)
 
 
-def LevelPanel():
+def LevelPanel(x_window, y_window, screen):
     Logo('logo.jpg')
     WriteText('Wybierz poziom trudności', 42)
     font_text = pygame.font.SysFont('Arial', 42)
