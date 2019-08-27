@@ -1,9 +1,6 @@
 import pygame
 import os
 import random
-import math
-import sys
-
 
 
 class Area:
@@ -88,5 +85,3 @@ class Helicopter:
         self.y_position_helicopter = self.y_position_helicopter + v
         self.shape_helicopter = pygame.Rect(self.x_position_helicopter, self.y_position_helicopter,
                                             self.height_helicopter, self.width_helicopter)
-
-

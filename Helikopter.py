@@ -8,10 +8,7 @@ Nie chce mi sie juz dalej dzisiaj nad tym siedziec
 from function import *
 from procedures import *
 import pygame
-import os
-import random
-import math
-import sys
+
 
 pygame.init()
 
