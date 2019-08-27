@@ -27,7 +27,7 @@ objects_stars = []
 objects_area = []
 for i in range(21):
     objects_area.append(Area(i * x_window / 20, x_window / 20, y_window))
-    objects_stars.append(Stars(i * x_window / 20, x_window / 20, i * x_window / 20))
+    objects_stars.append(Stars(i * x_window / 20, x_window / 20, y_window, i * x_window / 20))
 
 '''Tworzenie gracza'''
 players = Helicopter(y_window / 2, x_window / 2)
@@ -91,13 +91,13 @@ while True:
     '''Panel gry'''
     screen.fill((100, 100, 100))
     if shows == 'menu':
-        StartPanel()
+        StartPanel(x_window, y_window, screen)
 
     elif shows == 'game':
 
         for obj_area in objects_area:
             obj_area.MoveArea(speed)
-            obj_area.DrawArea()
+            obj_area.DrawArea(screen)
 
             if obj_area.CollisionArea(players.shape_helicopter):
                 shows = 'end'
@@ -107,34 +107,34 @@ while True:
 
             if obj_area.x_area <= -obj_area.width_area:
                 objects_area.remove(obj_area)
-                objects_area.append(Area(x_window, x_window / 20))
+                objects_area.append(Area(x_window, x_window / 20, y_window))
 
         for obj_star in objects_stars:
             obj_star.MoveStars(speed)
-            obj_star.DrawStars()
+            obj_star.DrawStars(screen)
 
             if obj_star.CollisionStars(players.shape_helicopter):
                 points_stars = points_stars + (1 * points_level)
                 objects_stars.remove(obj_star)
-                objects_stars.append(Stars(0, 0, x_window))
+                objects_stars.append(Stars(0, 0,y_window, x_window))
 
         for obj_star in objects_stars:
 
             if obj_star.x_stars <= -obj_star.width_stars:
                 objects_stars.remove(obj_star)
-                objects_stars.append(Stars(0, 0, x_window))
+                objects_stars.append(Stars(0, 0,y_window, x_window))
 
-        players.DrawHelicopter()
+        players.DrawHelicopter(screen)
         players.MoveHelicopter(dy)
-        WritePoints('Punkty: {}'.format(str(points_stars)), 20)
+        WritePoints('Punkty: {}'.format(str(points_stars)), 20, screen)
 
     elif shows == 'level':
-        LevelPanel()
+        LevelPanel(x_window, y_window, screen)
 
     elif shows == 'statistic':
-        OpenFileStatistic()
+        OpenFileStatistic(x_window, y_window, screen)
 
     elif shows == 'end':
-        EndPanel(points_stars)
+        EndPanel(points_stars, x_window, y_window, screen)
 
     pygame.display.update()

@@ -41,7 +41,7 @@ class Area:
 
 class Stars(Area):
 
-    def __init__(self, x_area, width_area, x_stars):
+    def __init__(self, x_area, width_area, y_window, x_stars):
         '''Tworze gwiazdki'''
         super().__init__(x_area, width_area, y_window)
         self.x_stars = x_stars
