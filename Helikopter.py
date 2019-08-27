@@ -5,7 +5,7 @@ Nie chce mi sie juz dalej dzisiaj nad tym siedziec
 2. zrobic klase zapisu do pliku i tworzenia tablicy
 
 '''
-
+from function import *
 from procedures import *
 import pygame
 import os
