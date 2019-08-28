@@ -32,6 +32,8 @@ players = Helicopter(y_window / 2, x_window / 2)
 dy = 0
 shows = 'menu'
 
+
+
 while True:
     '''Funkcja wyłączenia gry'''
     for event in pygame.event.get():
@@ -87,8 +89,10 @@ while True:
 
     '''Panel gry'''
     screen.fill((100, 100, 100))
+    #panel = Panel(points_stars, x_window, y_window, screen)
     if shows == 'menu':
         StartPanel(x_window, y_window, screen)
+        #panel.StartPanel()
 
     elif shows == 'game':
 

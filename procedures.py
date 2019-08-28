@@ -85,3 +85,86 @@ class Helicopter:
         self.y_position_helicopter = self.y_position_helicopter + v
         self.shape_helicopter = pygame.Rect(self.x_position_helicopter, self.y_position_helicopter,
                                             self.height_helicopter, self.width_helicopter)
+
+
+class Write:
+
+    def __init__(self, text, size, x_window, y_window, screen, file):
+        self.text = text
+        self.size = size
+        self.x_window = x_window
+        self.y_window = y_window
+        self.screen = screen
+        self.file = file
+
+    def WriteText(self):
+        '''Tworze tekst wyskakujacy podczas gry'''
+        self.font_text = pygame.font.SysFont('Arial', self.size)
+        self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
+        self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
+        self.y_position = (self.y_window - self.render_text.get_rect().height) / 2
+        self.screen.blit(self.render_text, (self.x_position, self.y_position))
+
+    def WriteTextSpace(self):
+        '''Tworze tekst wyskakujacy podczas gry'''
+        self.font_text = pygame.font.SysFont('Arial', self.size)
+        self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
+        self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
+        self.y_position = (self.y_window - self.render_text.get_rect().height) * 2 / 3
+        self.screen.blit(self.render_text, (self.x_position, self.y_position))
+
+    def WritePoints(self):
+        '''Tworze tekst z ilością punktów'''
+        self.font_text = pygame.font.SysFont('Arial', self.size)
+        self.render_text = self.font_text.render(self.text, 1, (220, 220, 220))
+        self.screen.blit(self.render_text, (20, 20))
+
+    def WriteResults(self):
+        '''Tworze wyniki na koniec gry'''
+        self.font_text = pygame.font.SysFont('Arial', self.size)
+        self.render_text = self.font_text.render(self.text, 1, (220, 220, 220))
+        self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
+        self.y_position = (self.y_window - self.render_text.get_rect().height) * 3 / 4
+        self.screen.blit(self.render_text, (self.x_position, self.y_position))
+
+    def Logo(self):
+        self.logo = pygame.image.load(os.path.join(self.file))
+        self.x_logo = (self.x_window - self.logo.get_rect().width) / 2
+        self.y_logo = (self.y_window * 2 / 3 - self.logo.get_rect().height) / 2
+        self.screen.blit(self.logo, (self.x_logo, self.y_logo))
+
+
+class Panel(Write):
+
+    def __init__(self, text, size, x_window, y_window, screen, file, points_stars):
+        super().__init__(text, size, x_window, y_window, screen, file)
+        self.points_stars = points_stars
+
+    def StartPanel(self):
+        Write.WriteText('HELIKOPTER', 42, self.x_window, self.y_window, self.screen)
+        Write.WriteTextSpace('Start Gry - SPACE', 38, self.x_window, self.y_window, self.screen)
+        Write.Logo('logo.jpg', self.x_window, self.y_window, self.screen)
+        self.font_text = pygame.font.SysFont('Arial', 32)
+        self.render_text = self.font_text.render('Najlepsze wyniki - t', 1, (220, 220, 220))
+        self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
+        self.y_position = (self.y_window - self.render_text.get_rect().height) * 3 / 4 - 50
+        self.screen.blit(self.render_text, (self.x_position, self.y_position + 50))
+
+    def EndPanel(self):
+        Write.Logo('logo.jpg', self.x_window, self.y_window, self.screen)
+        Write.WriteText('Niestety przegrywasz', 42, self.x_window, self.y_window, self.screen)
+        Write.WriteTextSpace('Naciśnij spację, aby zacząć gre', 42, self.x_window, self.y_window, self.screen)
+        self.Write.WriteResults('Uzyskałeś {} punktów'.format(str(self.points_stars)), 30, self.x_window, self.y_window, self.screen)
+
+    def LevelPanel(self):
+        Write.Logo('logo.jpg', self.x_window, self.y_window, self.screen)
+        Write.WriteText('Wybierz poziom trudności', 42, self.x_window, self.y_window, self.screen)
+        self.font_text = pygame.font.SysFont('Arial', 42)
+        self.render_text_easy = self.font_text.render('Easy - e', 1, (226, 216, 196))
+        self.render_text_medium = self.font_text.render('Medium - m', 1, (226, 216, 196))
+        self.render_text_hard = self.font_text.render('Hard - h', 1, (226, 216, 196))
+        self.x_position = (self.x_window - self.render_text_medium.get_rect().width) / 2
+        self.y_position = (self.y_window - self.render_text_medium.get_rect().height) * 3 / 4 - 50
+        self.screen.blit(self.render_text_easy, (self.x_position + 20, self.y_position - 50))
+        self.screen.blit(self.render_text_medium, (self.x_position - 10, self.y_position))
+        self.screen.blit(self.render_text_hard, (self.x_position + 20, self.y_position + 50))
