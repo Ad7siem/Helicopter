@@ -89,7 +89,7 @@ class Helicopter:
 
 class Write:
 
-    def __init__(self, text, size, x_window, y_window, screen, file):
+    def __init__(self, x_window, y_window, screen):
         self.text = text
         self.size = size
         self.x_window = x_window
@@ -97,7 +97,7 @@ class Write:
         self.screen = screen
         self.file = file
 
-    def WriteText(self):
+    def WriteText(self, text, size):
         '''Tworze tekst wyskakujacy podczas gry'''
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
@@ -105,7 +105,7 @@ class Write:
         self.y_position = (self.y_window - self.render_text.get_rect().height) / 2
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
 
-    def WriteTextSpace(self):
+    def WriteTextSpace(self, text, size):
         '''Tworze tekst wyskakujacy podczas gry'''
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
@@ -113,13 +113,13 @@ class Write:
         self.y_position = (self.y_window - self.render_text.get_rect().height) * 2 / 3
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
 
-    def WritePoints(self):
+    def WritePoints(self, text, size):
         '''Tworze tekst z ilością punktów'''
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (220, 220, 220))
         self.screen.blit(self.render_text, (20, 20))
 
-    def WriteResults(self):
+    def WriteResults(self, text, size):
         '''Tworze wyniki na koniec gry'''
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (220, 220, 220))
@@ -127,18 +127,19 @@ class Write:
         self.y_position = (self.y_window - self.render_text.get_rect().height) * 3 / 4
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
 
-    def Logo(self):
+    def Logo(self, file):
         self.logo = pygame.image.load(os.path.join(self.file))
         self.x_logo = (self.x_window - self.logo.get_rect().width) / 2
         self.y_logo = (self.y_window * 2 / 3 - self.logo.get_rect().height) / 2
         self.screen.blit(self.logo, (self.x_logo, self.y_logo))
 
 
-class Panel(Write):
+class Panel():
 
-    def __init__(self, text, size, x_window, y_window, screen, file, points_stars):
-        super().__init__(text, size, x_window, y_window, screen, file)
-        self.points_stars = points_stars
+    def __init__(self, x_window, y_window, screen):
+        self.x_window = x_window
+        self.y_window = y_window
+        self.screen = screen
 
     def StartPanel(self):
         Write.WriteText('HELIKOPTER', 42, self.x_window, self.y_window, self.screen)
