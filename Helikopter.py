@@ -91,7 +91,7 @@ while True:
                 dy = 0
 
     '''Panel gry'''
-    screen.fill((100, 100, 100))
+    screen.fill((0, 0, 0))
     panel = Panel(x_window, y_window, screen)
     write = Write(x_window, y_window, screen)
     if shows == 'menu':

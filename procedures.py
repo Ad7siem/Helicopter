@@ -159,14 +159,11 @@ class Panel:
 
 
     def StartPanel(self):
-        self.write.WriteText('HELIKOPTER', 42)
-        self.write.WriteTextSpace('Start Gry - SPACE', 38)
+        self.write.WriteText('HELIKOPTER', 72)
+        self.write.WriteTextSpace('Start Gry - SPACE'.upper(), 38)
         self.write.Logo('logo.jpg')
-        self.font_text = pygame.font.SysFont('Arial', 32)
-        self.render_text = self.font_text.render('Najlepsze wyniki - t', 1, (220, 220, 220))
-        self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
-        self.y_position = (self.y_window - self.render_text.get_rect().height) * 3 / 4 - 50
-        self.screen.blit(self.render_text, (self.x_position, self.y_position + 50))
+        self.write.WriteOther('Najlepszy wynik - t'.upper(), 28, x_window=(self.x_window)*3.5/10, y_window=(self.y_window)*7/10, color=(226, 216, 196))
+
 
     def EndPanel(self, points_stars):
         self.points_stars = points_stars
@@ -176,6 +173,7 @@ class Panel:
         self.write.WriteResults('Uzyskałeś {} punktów'.format(str(self.points_stars)), 30)
 
     def LevelPanel(self):
+        self.write.WriteOther('Wróć', 18, 40, 40, color=(200, 200, 200))
         self.write.Logo('logo.jpg')
         self.write.WriteText('Wybierz poziom trudności', 42)
         self.font_text = pygame.font.SysFont('Arial', 42)
@@ -190,5 +188,6 @@ class Panel:
 
     def StatisticsTablePanel(self, OpenFileStatistic):
         OpenFileStatistic(self.x_window, self.y_window, self.screen)
-        self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (220, 220, 220))
-        self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (40, 40, 40))
+        self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(200, 200, 200))
+        self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
+        self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (60, 60, 60))
