@@ -110,15 +110,3 @@ def LevelPanel(x_window, y_window, screen):
 'Do dokończenia = puste i nie wiem czy cos zrobie'
 
 
-def StatisticsTablePanel():
-    pass
-    '''
-    path = os.path.dirname(sys.argv[0])
-    with open(path + '\statistic.ini', 'w+') as file:
-        for line in file:
-            font_text = pygame.font.SysFont('Arial', 32)
-            render_text = font_text.render(str(line), 1, (255, 255, 255))
-            screen.blit(render_text, (20, 20))
-        #font_text = pygame.font.SysFont('Arial', 32)
-        #render_text = font_text.render(str(file.write), 1, (220, 220, 220))
-        #screen.blit(render_text, (20, 20))'''

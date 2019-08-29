@@ -81,7 +81,7 @@ while True:
                 if shows == 'statistic':
                     ResertStatistic()
             elif event.key == pygame.K_BACKSPACE:
-                if shows == 'statistic':
+                if shows == 'statistic' or shows == 'level':
                     shows = 'menu'
             elif event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -96,8 +96,6 @@ while True:
     write = Write(x_window, y_window, screen)
     if shows == 'menu':
         panel.StartPanel()
-        #Panel(StartPanel('x_window', 'y_window', 'screen'))
-        #panel.StartPanel()
 
     elif shows == 'game':
 
@@ -138,7 +136,7 @@ while True:
         panel.LevelPanel()
 
     elif shows == 'statistic':
-        OpenFileStatistic(x_window, y_window, screen)
+        panel.StatisticsTablePanel(OpenFileStatistic)
 
     elif shows == 'end':
         panel.EndPanel(points_stars)

@@ -139,6 +139,15 @@ class Write:
         self.y_logo = (self.y_window * 2 / 3 - self.logo.get_rect().height) / 2
         self.screen.blit(self.logo, (self.x_logo, self.y_logo))
 
+    def WriteOther(self, text, size, x_window, y_window, color):
+        self.text = text
+        self.size = size
+        self.x_position = x_window
+        self.y_position = y_window
+        self. font_text = pygame.font.SysFont('Arial', self.size)
+        self.render_text = self.font_text.render(self.text, 1, (color))
+        self.screen.blit(self.render_text, (self.x_position, self.y_position))
+
 
 class Panel:
 
@@ -178,3 +187,8 @@ class Panel:
         self.screen.blit(self.render_text_easy, (self.x_position + 20, self.y_position - 50))
         self.screen.blit(self.render_text_medium, (self.x_position - 10, self.y_position))
         self.screen.blit(self.render_text_hard, (self.x_position + 20, self.y_position + 50))
+
+    def StatisticsTablePanel(self, OpenFileStatistic):
+        OpenFileStatistic(self.x_window, self.y_window, self.screen)
+        self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (220, 220, 220))
+        self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (40, 40, 40))
