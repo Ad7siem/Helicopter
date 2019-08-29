@@ -99,7 +99,7 @@ class Write:
         self.text = text
         self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
-        self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
+        self.render_text = self.font_text.render(self.text, 1, (156, 146, 126))
         self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
         self.y_position = (self.y_window - self.render_text.get_rect().height) / 2
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
@@ -163,6 +163,7 @@ class Panel:
         self.write.WriteTextSpace('Start Gry - SPACE'.upper(), 38)
         self.write.Logo('logo.jpg')
         self.write.WriteOther('Najlepszy wynik - t'.upper(), 28, x_window=(self.x_window)*3.5/10, y_window=(self.y_window)*7/10, color=(226, 216, 196))
+        self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10, y_window=(self.y_window) * 8 / 10, color=(70, 70, 70))
 
 
     def EndPanel(self, points_stars):
@@ -171,9 +172,11 @@ class Panel:
         self.write.WriteText('Niestety przegrywasz', 42)
         self.write.WriteTextSpace('Naciśnij spację, aby zacząć gre', 42)
         self.write.WriteResults('Uzyskałeś {} punktów'.format(str(self.points_stars)), 30)
+        self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
+                              y_window=(self.y_window) * 8 / 10, color=(70, 70, 70))
 
     def LevelPanel(self):
-        self.write.WriteOther('Wróć', 18, 40, 40, color=(200, 200, 200))
+        self.write.WriteOther('Wróć - Backspace', 19, 40, 40, color=(100, 100, 100))
         self.write.Logo('logo.jpg')
         self.write.WriteText('Wybierz poziom trudności', 42)
         self.font_text = pygame.font.SysFont('Arial', 42)
@@ -185,9 +188,13 @@ class Panel:
         self.screen.blit(self.render_text_easy, (self.x_position + 20, self.y_position - 50))
         self.screen.blit(self.render_text_medium, (self.x_position - 10, self.y_position))
         self.screen.blit(self.render_text_hard, (self.x_position + 20, self.y_position + 50))
+        self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
+                              y_window=(self.y_window) * 8 / 10, color=(70, 70, 70))
 
     def StatisticsTablePanel(self, OpenFileStatistic):
         OpenFileStatistic(self.x_window, self.y_window, self.screen)
-        self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(200, 200, 200))
+        self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(100, 100, 100))
         self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
         self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (60, 60, 60))
+        self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
+                              y_window=(self.y_window) * 8.5 / 10, color=(70, 70, 70))
