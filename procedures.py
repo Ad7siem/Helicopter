@@ -90,15 +90,14 @@ class Helicopter:
 class Write:
 
     def __init__(self, x_window, y_window, screen):
-        self.text = text
-        self.size = size
         self.x_window = x_window
         self.y_window = y_window
         self.screen = screen
-        self.file = file
 
     def WriteText(self, text, size):
         '''Tworze tekst wyskakujacy podczas gry'''
+        self.text = text
+        self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
         self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
@@ -107,6 +106,8 @@ class Write:
 
     def WriteTextSpace(self, text, size):
         '''Tworze tekst wyskakujacy podczas gry'''
+        self.text = text
+        self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (226, 216, 196))
         self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
@@ -115,12 +116,16 @@ class Write:
 
     def WritePoints(self, text, size):
         '''Tworze tekst z ilością punktów'''
+        self.text = text
+        self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (220, 220, 220))
         self.screen.blit(self.render_text, (20, 20))
 
     def WriteResults(self, text, size):
         '''Tworze wyniki na koniec gry'''
+        self.text = text
+        self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (220, 220, 220))
         self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
@@ -128,38 +133,42 @@ class Write:
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
 
     def Logo(self, file):
+        self.file = file
         self.logo = pygame.image.load(os.path.join(self.file))
         self.x_logo = (self.x_window - self.logo.get_rect().width) / 2
         self.y_logo = (self.y_window * 2 / 3 - self.logo.get_rect().height) / 2
         self.screen.blit(self.logo, (self.x_logo, self.y_logo))
 
 
-class Panel():
+class Panel:
 
     def __init__(self, x_window, y_window, screen):
         self.x_window = x_window
         self.y_window = y_window
         self.screen = screen
+        self.write = Write(self.x_window, self.y_window, self.screen)
+
 
     def StartPanel(self):
-        Write.WriteText('HELIKOPTER', 42, self.x_window, self.y_window, self.screen)
-        Write.WriteTextSpace('Start Gry - SPACE', 38, self.x_window, self.y_window, self.screen)
-        Write.Logo('logo.jpg', self.x_window, self.y_window, self.screen)
+        self.write.WriteText('HELIKOPTER', 42)
+        self.write.WriteTextSpace('Start Gry - SPACE', 38)
+        self.write.Logo('logo.jpg')
         self.font_text = pygame.font.SysFont('Arial', 32)
         self.render_text = self.font_text.render('Najlepsze wyniki - t', 1, (220, 220, 220))
         self.x_position = (self.x_window - self.render_text.get_rect().width) / 2
         self.y_position = (self.y_window - self.render_text.get_rect().height) * 3 / 4 - 50
         self.screen.blit(self.render_text, (self.x_position, self.y_position + 50))
 
-    def EndPanel(self):
-        Write.Logo('logo.jpg', self.x_window, self.y_window, self.screen)
-        Write.WriteText('Niestety przegrywasz', 42, self.x_window, self.y_window, self.screen)
-        Write.WriteTextSpace('Naciśnij spację, aby zacząć gre', 42, self.x_window, self.y_window, self.screen)
-        self.Write.WriteResults('Uzyskałeś {} punktów'.format(str(self.points_stars)), 30, self.x_window, self.y_window, self.screen)
+    def EndPanel(self, points_stars):
+        self.points_stars = points_stars
+        self.write.Logo('logo.jpg')
+        self.write.WriteText('Niestety przegrywasz', 42)
+        self.write.WriteTextSpace('Naciśnij spację, aby zacząć gre', 42)
+        self.write.WriteResults('Uzyskałeś {} punktów'.format(str(self.points_stars)), 30)
 
     def LevelPanel(self):
-        Write.Logo('logo.jpg', self.x_window, self.y_window, self.screen)
-        Write.WriteText('Wybierz poziom trudności', 42, self.x_window, self.y_window, self.screen)
+        self.write.Logo('logo.jpg')
+        self.write.WriteText('Wybierz poziom trudności', 42)
         self.font_text = pygame.font.SysFont('Arial', 42)
         self.render_text_easy = self.font_text.render('Easy - e', 1, (226, 216, 196))
         self.render_text_medium = self.font_text.render('Medium - m', 1, (226, 216, 196))

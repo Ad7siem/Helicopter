@@ -93,6 +93,7 @@ while True:
     '''Panel gry'''
     screen.fill((100, 100, 100))
     panel = Panel(x_window, y_window, screen)
+    write = Write(x_window, y_window, screen)
     if shows == 'menu':
         panel.StartPanel()
         #Panel(StartPanel('x_window', 'y_window', 'screen'))
@@ -131,15 +132,15 @@ while True:
 
         players.DrawHelicopter(screen)
         players.MoveHelicopter(dy)
-        WritePoints('Punkty: {}'.format(str(points_stars)), 20, screen)
+        write.WritePoints('Punkty: {}'.format(str(points_stars)), 20)
 
     elif shows == 'level':
-        LevelPanel(x_window, y_window, screen)
+        panel.LevelPanel()
 
     elif shows == 'statistic':
         OpenFileStatistic(x_window, y_window, screen)
 
     elif shows == 'end':
-        EndPanel(points_stars, x_window, y_window, screen)
+        panel.EndPanel(points_stars)
 
     pygame.display.update()

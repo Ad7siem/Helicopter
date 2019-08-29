@@ -2,7 +2,7 @@ import pygame
 import os
 import sys
 
-
+"""
 def WriteText(text, size, x_window, y_window, screen):
     '''Tworze tekst wyskakujacy podczas gry'''
     font_text = pygame.font.SysFont('Arial', size)
@@ -36,7 +36,7 @@ def WriteResults(text, size, x_window, y_window, screen):
     y_position = (y_window - render_text.get_rect().height) * 3 / 4
     screen.blit(render_text, (x_position, y_position))
 
-
+"""
 def SaveFileStatistic(points_level, points_stars):
     path = os.path.dirname(sys.argv[0])
     with open(path + '\statistic.ini', 'a+') as file:
@@ -66,7 +66,7 @@ def ResertStatistic():
     path = os.path.dirname(sys.argv[0])
     with open(path + '\statistic.ini', 'w+') as file:
         file.writelines('')
-
+'''
 
 def Logo(file, x_window, y_window, screen):
     logo = pygame.image.load(os.path.join(file))
@@ -105,7 +105,7 @@ def LevelPanel(x_window, y_window, screen):
     screen.blit(render_text_easy, (x_position + 20, y_position - 50))
     screen.blit(render_text_medium, (x_position - 10, y_position))
     screen.blit(render_text_hard, (x_position + 20, y_position + 50))
-
+'''
 
 'Do dokończenia = puste i nie wiem czy cos zrobie'
 
