@@ -103,17 +103,17 @@ class File:
                     self.parameters[parts[0]] = parts[1]
 
     def read_parameter(self, key):
-        for i in range(1, 10):
-            if key[i] in self.parameters.keys():
+        for i in self.parameters:
+            if key in self.parameters.keys():
                 return self.parameters[key]
             else:
                 return None
-            '''
+        '''
         if key in self.parameters.keys():
             return self.parameters[key]
         else:
-            return None'''
-
+            return None
+'''
     def write_parameter(self, key, value):
             self.parameters[key] = value
 
