@@ -87,12 +87,57 @@ class Helicopter:
                                             self.height_helicopter, self.width_helicopter)
 
 
-class Write:
 
-    def __init__(self, x_window, y_window, screen):
+class File:
+
+    def __init__(self, path):
+        self.path = path
+        self.parameters = {}
+        self.read_from_disk()
+
+    def read_from_disk(self):
+        if os.path.isfile(self.path):
+            with open (self.path) as file:
+                for line in file:
+                    parts = line.replace('\n', '').split('=')
+                    self.parameters[parts[0]] = parts[1]
+
+    def read_parameter(self, key):
+        for i in range(1, 10):
+            if key[i] in self.parameters.keys():
+                return self.parameters[key]
+            else:
+                return None
+            '''
+        if key in self.parameters.keys():
+            return self.parameters[key]
+        else:
+            return None'''
+
+    def write_parameter(self, key, value):
+            self.parameters[key] = value
+
+    def save_on_disk(self):
+        with open(self.path, 'a+') as file:
+            for key, value in self.parameters.items():
+                line = '{}={}\n'.format(key, value)
+                file.writelines(line)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+
+class Write(File):
+
+    def __init__(self, path, x_window, y_window, screen):
+        super().__init__(path)
         self.x_window = x_window
         self.y_window = y_window
         self.screen = screen
+        self.file = File(self.path)
 
     def WriteText(self, text, size):
         '''Tworze tekst wyskakujacy podczas gry'''
@@ -139,6 +184,30 @@ class Write:
         self.y_logo = (self.y_window * 2 / 3 - self.logo.get_rect().height) / 2
         self.screen.blit(self.logo, (self.x_logo, self.y_logo))
 
+    def WriteStatistic(self, size):
+        #self.text = text
+        self.size = size
+        self.font_text = pygame.font.SysFont('Arial', self.size)
+        self.render_text_value = self.font_text.render(self.file.read_parameter('value'), 1, (220, 220, 220))
+        self.render_text_level = self.font_text.render(self.file.read_parameter('level'), 1, (220, 220, 220))
+        self.x_position_level = (self.x_window - self.render_text_level.get_rect().width) * 1 / 3
+        self.y_position_level = (self.y_window - self.render_text_level.get_rect().height) * 1 / 4
+        self.x_position_value = (self.x_window - self.render_text_value.get_rect().width) * 2 / 3
+        self.y_position_value = (self.y_window - self.render_text_value.get_rect().height) * 1 / 4
+        self.screen.blit(self.render_text_value, (self.x_position_value, self.y_position_value))
+        self.screen.blit(self.render_text_level, (self.x_position_level, self.y_position_level))
+
+        self.render_text = self.font_text.render('Poziom:', 1, (220, 220, 220))
+        self.x_position = (self.x_window - self.render_text.get_rect().width) * 1 / 3
+        self.y_position = (self.y_window - self.render_text.get_rect().height) * 1 / 5
+        self.screen.blit(self.render_text, (self.x_position, self.y_position))
+
+        self.render_text = self.font_text.render('Punkty:', 1, (220, 220, 220))
+        self.x_position = (self.x_window - self.render_text.get_rect().width) * 2 / 3
+        self.y_position = (self.y_window - self.render_text.get_rect().height) * 1 / 5
+        self.screen.blit(self.render_text, (self.x_position, self.y_position))
+
+
     def WriteOther(self, text, size, x_window, y_window, color):
         self.text = text
         self.size = size
@@ -149,13 +218,14 @@ class Write:
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
 
 
-class Panel:
+class Panel(File):
 
-    def __init__(self, x_window, y_window, screen):
+    def __init__(self, path, x_window, y_window, screen):
+        super().__init__(path)
         self.x_window = x_window
         self.y_window = y_window
         self.screen = screen
-        self.write = Write(self.x_window, self.y_window, self.screen)
+        self.write = Write(self.path, self.x_window, self.y_window, self.screen)
 
 
     def StartPanel(self):
@@ -164,7 +234,6 @@ class Panel:
         self.write.Logo('logo.jpg')
         self.write.WriteOther('Najlepszy wynik - t'.upper(), 28, x_window=(self.x_window)*3.5/10, y_window=(self.y_window)*7/10, color=(226, 216, 196))
         self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10, y_window=(self.y_window) * 8 / 10, color=(70, 70, 70))
-
 
     def EndPanel(self, points_stars):
         self.points_stars = points_stars
@@ -191,10 +260,12 @@ class Panel:
         self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
                               y_window=(self.y_window) * 8 / 10, color=(70, 70, 70))
 
-    def StatisticsTablePanel(self, OpenFileStatistic):
-        OpenFileStatistic(self.x_window, self.y_window, self.screen)
+    def StatisticsTablePanel(self): #OpenFileStatistic):
+        self.write.WriteStatistic(32)
+        #OpenFileStatistic(self.x_window, self.y_window, self.screen)
         self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(100, 100, 100))
         self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
         self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (60, 60, 60))
         self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
                               y_window=(self.y_window) * 8.5 / 10, color=(70, 70, 70))
+

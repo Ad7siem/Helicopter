@@ -35,7 +35,7 @@ players = Helicopter(y_window / 2, x_window / 2)
 dy = 0
 shows = 'menu'
 
-
+file = File(FilePath())
 
 while True:
     '''Funkcja wyłączenia gry'''
@@ -92,8 +92,8 @@ while True:
 
     '''Panel gry'''
     screen.fill((0, 0, 0))
-    panel = Panel(x_window, y_window, screen)
-    write = Write(x_window, y_window, screen)
+    panel = Panel(FilePath(), x_window, y_window, screen)
+    write = Write(FilePath(), x_window, y_window, screen)
     if shows == 'menu':
         panel.StartPanel()
 
@@ -105,7 +105,15 @@ while True:
 
             if obj_area.CollisionArea(players.shape_helicopter):
                 shows = 'end'
-                SaveFileStatistic(points_level, points_stars)
+                #SaveFileStatistic(points_level, points_stars)
+                if points_level == 1:
+                    file.write_parameter('level', 'easy')
+                elif points_level == 2:
+                    file.write_parameter('level', 'medium')
+                elif points_level == 3:
+                    file.write_parameter('level', 'hard')
+                file.write_parameter('value', points_stars)
+                file.save_on_disk()
 
         for obj_area in objects_area:
 
@@ -136,7 +144,7 @@ while True:
         panel.LevelPanel()
 
     elif shows == 'statistic':
-        panel.StatisticsTablePanel(OpenFileStatistic)
+        panel.StatisticsTablePanel()
 
     elif shows == 'end':
         panel.EndPanel(points_stars)

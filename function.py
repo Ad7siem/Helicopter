@@ -3,7 +3,11 @@ import os
 import sys
 import itertools
 
-
+def FilePath():
+    path = os.path.dirname(sys.argv[0])
+    file_path = os.path.join(path, 'statistic.ini')
+    return file_path
+"""
 def SaveFileStatistic(points_level, points_stars):
     path = os.path.dirname(sys.argv[0])
     with open(path + '\statistic.ini', 'a+') as file:
@@ -22,11 +26,13 @@ def SaveFileStatistic(points_level, points_stars):
             #s['hard'] = points_stars
             s = 'hard: {}\n'.format(points_stars)
             file.writelines('{}'.format(s).upper())
-
-
+"""
+'''
 def OpenFileStatistic(x_window, y_window, screen):
     path = os.path.dirname(sys.argv[0])
-    """table = {}
+
+    """
+    table = {}
     with open(path + '\statistic.ini', 'r+') as file:
 
         for line in file:
@@ -52,7 +58,7 @@ def OpenFileStatistic(x_window, y_window, screen):
         y_position = y_position + 35
 
     """
-
+"""
     with open(path + '\statistic.ini', 'r+') as file:
         size = 24
         x_position = (x_window - size) * 1 / 5
@@ -63,6 +69,7 @@ def OpenFileStatistic(x_window, y_window, screen):
             render_text = font_text.render(str(parts), 1, (220, 220, 220))
             screen.blit(render_text, (x_position, y_position))
             y_position = y_position + 35
+            """
             """
     with open(path + '\statistic.ini', 'r+') as file:
         size = 24
@@ -82,3 +89,4 @@ def ResertStatistic():
     path = os.path.dirname(sys.argv[0])
     with open(path + '\statistic.ini', 'w+') as file:
         file.writelines('')
+'''
