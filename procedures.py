@@ -95,19 +95,24 @@ class File:
         self.parameter = {}
         self.parameters = {}
         self.ReadFromDisk()
+        #self.tablica = []
 
     # Brak pętli wypisywania wszystkich kluczy a nie ostatnich
 
     def ReadFromDisk(self):
         if os.path.isfile(self.path):
+            self.tablica = []
             with open(self.path) as file:
                 for line in file:
                     parts = line.replace('\n', '').split('=')
                     self.parameters[parts[0]] = parts[1]
+                    self.tablica.append(self.parameters)
                     #self.parameters = {self.parameter}
                 #print(self.parameters, self.parameter)
+                print(self.tablica)
 
     def ReadParameter(self, key):
+        #return self.tablica
         if key in self.parameters.keys():
             return self.parameters[key]
         else:
