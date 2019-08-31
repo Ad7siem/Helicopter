@@ -105,15 +105,14 @@ while True:
 
             if obj_area.CollisionArea(players.shape_helicopter):
                 shows = 'end'
-                #SaveFileStatistic(points_level, points_stars)
                 if points_level == 1:
-                    file.write_parameter('level', 'easy')
+                    file.WriteParameter('level', 'easy')
                 elif points_level == 2:
-                    file.write_parameter('level', 'medium')
+                    file.WriteParameter('level', 'medium')
                 elif points_level == 3:
-                    file.write_parameter('level', 'hard')
-                file.write_parameter('value', points_stars)
-                file.save_on_disk()
+                    file.WriteParameter('level', 'hard')
+                file.WriteParameter('value', points_stars)
+                file.SaveOnDisk()
 
         for obj_area in objects_area:
 

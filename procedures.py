@@ -92,43 +92,42 @@ class File:
 
     def __init__(self, path):
         self.path = path
+        self.parameter = {}
         self.parameters = {}
-        self.read_from_disk()
+        self.ReadFromDisk()
 
-    def read_from_disk(self):
+    # Brak pętli wypisywania wszystkich kluczy a nie ostatnich
+
+    def ReadFromDisk(self):
         if os.path.isfile(self.path):
-            with open (self.path) as file:
+            with open(self.path) as file:
                 for line in file:
                     parts = line.replace('\n', '').split('=')
-                    self.parameters[parts[0]] = parts[1]
+                    self.parameter[parts[0]] = parts[1]
+                    self.parameters = {self.parameter}
+                print(self.parameters, self.parameter)
 
-    def read_parameter(self, key):
-        for i in self.parameters:
-            if key in self.parameters.keys():
-                return self.parameters[key]
-            else:
-                return None
-        '''
+    def ReadParameter(self, key):
         if key in self.parameters.keys():
             return self.parameters[key]
         else:
             return None
-'''
-    def write_parameter(self, key, value):
+
+    def WriteParameter(self, key, value):
             self.parameters[key] = value
 
-    def save_on_disk(self):
+    def SaveOnDisk(self):
         with open(self.path, 'a+') as file:
             for key, value in self.parameters.items():
                 line = '{}={}\n'.format(key, value)
                 file.writelines(line)
-
+    '''
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
-
+    '''
 
 class Write(File):
 
@@ -188,8 +187,8 @@ class Write(File):
         #self.text = text
         self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
-        self.render_text_value = self.font_text.render(self.file.read_parameter('value'), 1, (220, 220, 220))
-        self.render_text_level = self.font_text.render(self.file.read_parameter('level'), 1, (220, 220, 220))
+        self.render_text_value = self.font_text.render(self.file.ReadParameter('value'), 1, (220, 220, 220))
+        self.render_text_level = self.font_text.render(self.file.ReadParameter('level'), 1, (220, 220, 220))
         self.x_position_level = (self.x_window - self.render_text_level.get_rect().width) * 1 / 3
         self.y_position_level = (self.y_window - self.render_text_level.get_rect().height) * 1 / 4
         self.x_position_value = (self.x_window - self.render_text_value.get_rect().width) * 2 / 3
@@ -206,7 +205,6 @@ class Write(File):
         self.x_position = (self.x_window - self.render_text.get_rect().width) * 2 / 3
         self.y_position = (self.y_window - self.render_text.get_rect().height) * 1 / 5
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
-
 
     def WriteOther(self, text, size, x_window, y_window, color):
         self.text = text
@@ -262,7 +260,6 @@ class Panel(File):
 
     def StatisticsTablePanel(self): #OpenFileStatistic):
         self.write.WriteStatistic(32)
-        #OpenFileStatistic(self.x_window, self.y_window, self.screen)
         self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(100, 100, 100))
         self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
         self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (60, 60, 60))
