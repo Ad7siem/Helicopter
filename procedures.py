@@ -103,7 +103,7 @@ class File:
             with open(self.path) as file:
                 for line in file:
                     parts = line.replace('\n', '').split('=')
-                    self.parameter[parts[0]] = parts[1]
+                    self.parameters[parts[0]] = parts[1]
                     #self.parameters = {self.parameter}
                 #print(self.parameters, self.parameter)
 
