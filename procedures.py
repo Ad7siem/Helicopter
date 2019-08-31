@@ -104,8 +104,8 @@ class File:
                 for line in file:
                     parts = line.replace('\n', '').split('=')
                     self.parameter[parts[0]] = parts[1]
-                    self.parameters = {self.parameter}
-                print(self.parameters, self.parameter)
+                    #self.parameters = {self.parameter}
+                #print(self.parameters, self.parameter)
 
     def ReadParameter(self, key):
         if key in self.parameters.keys():
