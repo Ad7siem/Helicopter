@@ -120,7 +120,7 @@ while True:
             if obj_star.CollisionStars(players.shape_helicopter):
                 points_stars = points_stars + (1 * points_level)
                 objects_stars.remove(obj_star)
-                objects_stars.append(Stars(0, 0,y_window, x_window))
+                objects_stars.append(Stars(0, 0, y_window, x_window))
 
         for obj_star in objects_stars:
 
