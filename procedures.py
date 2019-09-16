@@ -201,7 +201,7 @@ class Write(File):
         self.size = size
         self.x_position = x_window
         self.y_position = y_window
-        self. font_text = pygame.font.SysFont('Arial', self.size)
+        self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text = self.font_text.render(self.text, 1, (color))
         self.screen.blit(self.render_text, (self.x_position, self.y_position))
 
