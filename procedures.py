@@ -92,12 +92,9 @@ class File:
 
     def __init__(self, path):
         self.path = path
-        self.parameter = {}
+        #self.parameter = {}
         self.parameters = {}
         self.ReadFromDisk()
-        #self.tablica = []
-
-    # Brak pętli wypisywania wszystkich kluczy a nie ostatnich
 
     def ReadFromDisk(self):
         if os.path.isfile(self.path):
@@ -107,12 +104,9 @@ class File:
                     parts = line.replace('\n', '').split('=')
                     self.parameters[parts[0]] = parts[1]
                     self.tablica.append(self.parameters)
-                    #self.parameters = {self.parameter}
-                #print(self.parameters, self.parameter)
-                print(self.tablica)
+                #print(self.tablica)
 
     def ReadParameter(self, key):
-        #return self.tablica
         if key in self.parameters.keys():
             return self.parameters[key]
         else:
@@ -126,13 +120,6 @@ class File:
             for key, value in self.parameters.items():
                 line = '{}={}\n'.format(key, value)
                 file.writelines(line)
-    '''
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
-    '''
 
 class Write(File):
 
@@ -189,7 +176,6 @@ class Write(File):
         self.screen.blit(self.logo, (self.x_logo, self.y_logo))
 
     def WriteStatistic(self, size):
-        #self.text = text
         self.size = size
         self.font_text = pygame.font.SysFont('Arial', self.size)
         self.render_text_value = self.font_text.render(self.file.ReadParameter('value'), 1, (220, 220, 220))
@@ -266,7 +252,7 @@ class Panel(File):
     def StatisticsTablePanel(self): #OpenFileStatistic):
         self.write.WriteStatistic(32)
         self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(100, 100, 100))
-        self.write.WriteOther('Oto Tablica najlepszych wyników:'.upper(), 36, x_window = (self.x_window) * 1.5 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
+        self.write.WriteOther('Oto Tablica ostatniego wyniku:'.upper(), 36, x_window = (self.x_window) * 1.7 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
         self.write.WriteOther('Naciśnij w aby wyczyścić tablice', 28, x_window=(self.x_window) * 1.5 / 5, y_window=(self.y_window) * 4 / 5, color = (60, 60, 60))
         self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
                               y_window=(self.y_window) * 8.5 / 10, color=(70, 70, 70))
