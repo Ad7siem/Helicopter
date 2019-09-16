@@ -87,7 +87,6 @@ class Helicopter:
                                             self.height_helicopter, self.width_helicopter)
 
 
-
 class File:
 
     def __init__(self, path):
