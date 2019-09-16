@@ -24,7 +24,7 @@ for i in range(21):
 
 '''Tworzenie gracza'''
 players = Helicopter(y_window / 2, x_window / 2)
-# namePlayers = input('Name:')
+
 dy = 0
 shows = 'menu'
 
