@@ -248,7 +248,7 @@ class Panel(File):
         self.write.WriteOther('exit game - esc'.upper(), 20, x_window=(self.x_window) * 4.05 / 10,
                               y_window=(self.y_window) * 8 / 10, color=(70, 70, 70))
 
-    def StatisticsTablePanel(self): #OpenFileStatistic):
+    def StatisticsTablePanel(self):
         self.write.WriteStatistic(32)
         self.write.WriteOther('Wróć - Backspace', 18, 40, 40, color=(100, 100, 100))
         self.write.WriteOther('Oto Tablica ostatniego wyniku:'.upper(), 36, x_window = (self.x_window) * 1.7 / 10, y_window = (self.y_window) * 1 / 9, color = (226, 216, 196))
